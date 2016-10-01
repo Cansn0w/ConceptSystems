@@ -30,13 +30,13 @@ def test_map():
 
     m = M()
 
-    m.add_concepts(1, 2, 3)
-    m.add_links('a', 'b')
-    m.add_concepts(1, 2, 3)
+    m.add_concepts((1, 2, 3))
+    m.add_links(('a', 'b'))
+    m.add_propositions(((1, 'a', 2), (2, 'b', 3)))
     
-    m.add_propositions((1, 'a', 2), (2, 'b', 3))
-    m.add_links('a', 'b')
-    m.add_propositions((1, 'a', 2), (2, 'b', 3))
+    m.add_concepts((1, 2, 3))
+    m.add_links(('a', 'b'))
+    m.add_propositions(((1, 'a', 2), (2, 'b', 3)))
 
     assert 1 in m.concepts
     assert 2 in m.concepts
@@ -45,9 +45,9 @@ def test_map():
     assert 'b' in m.links
     assert (1, 'a', 2) in m.prop
     assert (2, 'b', 3) in m.prop
-    expect(ValidationError, m.add_proposition, (1, 'a', 1))
-    expect(ValidationError, m.add_proposition, (1, 'a', 4))
-    expect(ValidationError, m.add_proposition, (1, 'c', 2))
+    expect(ValidationError, m.add_proposition, ((1, 'a', 1)))
+    expect(ValidationError, m.add_proposition, ((1, 'a', 4)))
+    expect(ValidationError, m.add_proposition, ((1, 'c', 2)))
     
 
     a = M()

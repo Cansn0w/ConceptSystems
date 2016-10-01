@@ -33,17 +33,17 @@ class ConceptMap:
         self.prop.add(proposition)
 
     # bulk adders
-    def add_concepts(self, *concepts):
-        self.concepts.update(set(concepts))
+    def add_concepts(self, iterable):
+        self.concepts.update(set(iterable))
 
-    def add_links(self, *links):
-        self.links.update(set(links))
+    def add_links(self, iterable):
+        self.links.update(set(iterable))
 
-    def add_propositions(self, *propositions):
+    def add_propositions(self, iterable):
         """Add propositions as tuple(concept1, link, concept2)."""
-        for i in propositions:
+        for i in iterable:
             self._validate_prop(i)
-        self.prop.update(set(propositions))
+        self.prop.update(set(iterable))
 
     # utils
     def diff(self, other):
@@ -58,4 +58,12 @@ class ConceptMap:
             'propositions': other.prop.difference(self.prop),
             }
         return diff_this, diff_other
+
+    def __repr__(self):
+        l = []
+        l.append('Concepts: ' + ', '.join(self.concepts))
+        l.append('Links: ' + ', '.join(self.links))
+        l.append('Propositions:')
+        l.extend(str(i[0]) + ' -- ' +str(i[1]) + ' -- ' +str(i[2]) for i in self.prop)
+        return '\n'.join(l)
 
