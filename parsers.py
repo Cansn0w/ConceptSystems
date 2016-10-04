@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 
+# from util.concept_map import ConceptMap
 from concept_map import ConceptMap
-
+import json
 
 class CsvMap:
 
@@ -9,7 +10,7 @@ class CsvMap:
         import csv
         ## Parse csv into Python object
         d = {}
-        with open(filename) as f:
+        with open(filename, encoding='utf-8', errors='ignore') as f:
             _ = f.readline()
             keyword = None
             for i in csv.reader(f):
@@ -84,20 +85,53 @@ class CxlMap:
     def __repr__(self):
         return repr(self.map)
 
+
+def to_json(_map):
+    content = {
+        'concepts': list(_map.concepts),
+        'links': list(_map.links),
+        'prepositions': [
+            {
+                'concept_1': p[0],
+                'link':      p[1],
+                'concept_2': p[2],
+            } for p in _map.prop
+        ]
+    }
+    return content
+
+
+def run():
+    csv = CsvMap('coffee.csv')
+    cxl = CxlMap('coffee.cxl')
+    payload = {
+        'topic': csv.name,
+        'question': csv.question,
+        'from_teacher': to_json(csv.map),
+        'from_student': to_json(cxl.map)
+    }
+
+    return payload
+
+
 if __name__ == '__main__':
     import sys
-
-    if len(sys.argv) != 3:
-        print('Usage:\n\tpython parsers.py map.csv map.cxl')
-        exit()
-
-    csv = CsvMap(sys.argv[1])
-    print('# csv map #')
-    print(csv)
-    print()
+    import json
     
-    cxl = CxlMap(sys.argv[2])
-    print('# cxl map #')
-    print(cxl)
-    print()
+    print(json.dumps(run(), indent=4))
+    # if len(sys.argv) != 3:
+    #     print('Usage:\n\tpython parsers.py map.csv map.cxl')
+    #     exit()
+
+    # csv = CsvMap(sys.argv[1])
+    # print('# csv map #')
+    # print(csv)
+    # print()
+
+    # cxl = CxlMap(sys.argv[2])
+    # print('# cxl map #')
+    # print(cxl)
+    # print()
+
+    # print(json.dumps(to_json(csv.map), indent=4))
 
