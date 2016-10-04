@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+<form action="/" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <label for="id_csv">Csv:</label>
+    <input id="id_csv" name="{{form.csv.name}}" required="" type="file">
+    <label for="id_cxl">Cxl:</label>
+    <input id="id_cxl" name="{{form.cxl.name}}" required="" type="file">
+    <input type="submit" value="Upload">
+</form>
+<hr>
+{% if file_list %}
+<p>Previous uploads:</p>
+<ul>
+    {% for i in file_list %}
+    <li><a href="/{{i.pk}}/">{{i.csv}} - {{i.cxl}}</a></li>
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+</html>

@@ -1,24 +1,23 @@
 #!/usr/bin/env python3
 
 # from util.concept_map import ConceptMap
-from concept_map import ConceptMap
-import json
+from .concept_map import ConceptMap
+
 
 class CsvMap:
 
-    def __init__(self, filename):
+    def __init__(self, file):
         import csv
         ## Parse csv into Python object
         d = {}
-        with open(filename, encoding='utf-8', errors='ignore') as f:
-            _ = f.readline()
-            keyword = None
-            for i in csv.reader(f):
-                if i[0]:
-                    keyword = i[0]
-                    d[keyword] = []
-                else:
-                    d[keyword].append(i)
+        _ = file.readline()
+        keyword = None
+        for i in csv.reader(file):
+            if i[0]:
+                keyword = i[0]
+                d[keyword] = []
+            else:
+                d[keyword].append(i)
 
         ## read entries from Python object to construct a map
         self.name = d['Concept map name:'][0][1]
@@ -56,13 +55,14 @@ def inner_join(table1, col1, table2, col2):
                 ret.append(i + j)
     return ret
 
+
 class CxlMap:
 
-    def __init__(self, filename):
+    def __init__(self, file):
         
         ## Parse CmapTools exported cxl file into concet map object
         import xml.etree.ElementTree as ET
-        m = ET.parse(filename).getroot().find('{http://cmap.ihmc.us/xml/cmap/}map')
+        m = ET.parse(file).getroot().find('{http://cmap.ihmc.us/xml/cmap/}map')
 
         concepts = {}
         links = {}

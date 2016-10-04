@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+
 def expect(err, func, *args):
     try:
         func(*args)
@@ -10,7 +11,7 @@ def expect(err, func, *args):
 
 
 def test_map():
-    from concept_map import ValidationError, ConceptMap as M
+    from .concept_map import ValidationError, ConceptMap as M
 
     m = M()
 
