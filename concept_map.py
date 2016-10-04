@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 
 class ValidationError(Exception):
     pass
@@ -58,6 +58,20 @@ class ConceptMap:
             'propositions': other.prop.difference(self.prop),
             }
         return diff_this, diff_other
+
+    def to_json(self):
+        content = {
+            'concepts': list(self.concepts),
+            'links': list(self.links),
+            'prepositions': list(
+                {
+                    'concept_1': p[0],
+                    'link':      p[1],
+                    'concept_2': p[2],
+                } for p in self.prop
+            )
+        }
+        return content
 
     def __repr__(self):
         l = []

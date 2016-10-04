@@ -32,7 +32,8 @@ class CsvMap:
         
         b = lambda x: True if x.lower() == 'yes' else False
         for i in d['Propositions:']:
-            self.map.add_proposition((i[1], i[2], i[3]))
+            if b(i[5]) and b(i[6]):
+                self.map.add_proposition((i[1], i[2], i[3]))
             # # # # (concept1, link, concept2) = (supplied, correct, important, present-string, absent-string)
             self.attribute[(i[1], i[2], i[3])] = (b(i[4]), b(i[5]), b(i[6]), i[7], i[8])
 
@@ -40,11 +41,14 @@ class CsvMap:
         l = []
         l.append('Name: ' + str(self.name))
         l.append(str(self.question))
-        l.append(repr(self.map))
+        l.append('Concepts: ' + ', '.join(self.map.concepts))
+        l.append('Links: ' + ', '.join(self.map.links))
+        l.append('Propositions:')
+        l.extend(str(i[0]) + ' -- ' +str(i[1]) + ' -- ' +str(i[2]) + ' :\t' + str(self.attribute[(i[0], i[1], i[2])]) for i in self.map.prop)
         return '\n'.join(l)
 
 
-def outer_join(table1, col1, table2, col2):
+def inner_join(table1, col1, table2, col2):
     ret = []
     for i in table1:
         for j in table2:
@@ -67,6 +71,10 @@ class CxlMap:
         for i in m.find('{http://cmap.ihmc.us/xml/cmap/}concept-list'):
             concepts[i.attrib['id']] = i.attrib['label']
             self.map.add_concept(i.attrib['label'])
+
+        self.attribute = {}
+        for i in m.find('{http://cmap.ihmc.us/xml/cmap/}concept-appearance-list'):
+            self.attribute[concepts[i.attrib['id']]] = (int(i.attrib['x']), int(i.attrib['y']))
             
         for i in m.find('{http://cmap.ihmc.us/xml/cmap/}linking-phrase-list'):
             links[i.attrib['id']] = i.attrib['label']
@@ -75,7 +83,7 @@ class CxlMap:
         connections = []
         for i in m.find('{http://cmap.ihmc.us/xml/cmap/}connection-list'):
             connections.append((i.attrib['from-id'], i.attrib['to-id']))
-        connections = outer_join(connections, 1, connections, 0)
+        connections = inner_join(connections, 1, connections, 0)
 
         for i in connections:
             if i[0] in links:
@@ -83,55 +91,55 @@ class CxlMap:
             self.map.add_proposition((concepts[i[0]], links[i[1]], concepts[i[3]]))
             
     def __repr__(self):
-        return repr(self.map)
+        l = []
+        l.append('Concepts: ' + ', '.join(i + (' (%d, %d)' % self.attribute[i]) for i in self.map.concepts))
+        l.append('Links: ' + ', '.join(self.map.links))
+        l.append('Propositions:')
+        l.extend(str(i[0]) + ' -- ' +str(i[1]) + ' -- ' +str(i[2]) for i in self.map.prop)
+        return '\n'.join(l)
 
 
-def to_json(_map):
-    content = {
-        'concepts': list(_map.concepts),
-        'links': list(_map.links),
-        'prepositions': [
-            {
-                'concept_1': p[0],
-                'link':      p[1],
-                'concept_2': p[2],
-            } for p in _map.prop
-        ]
-    }
-    return content
+class Marker:
 
+    def __init__(self, csvmap, cxlmap):
+        self.csv = csvmap
+        self.cxl = cxlmap
 
-def run():
-    csv = CsvMap('coffee.csv')
-    cxl = CxlMap('coffee.cxl')
-    payload = {
-        'topic': csv.name,
-        'question': csv.question,
-        'from_teacher': to_json(csv.map),
-        'from_student': to_json(cxl.map)
-    }
+    def _parse(self):
+        dcsv, dcxl = self.csv.map.diff(self.cxl.map)
+        ret = {}
+        ret['missing concepts'] = list(dcsv['concepts'])
+        ret['concepts'] = list({
+            'name': i,
+            'x': self.cxl.attribute[i][0],
+            'y': self.cxl.attribute[i][1],
+            'correct': i not in dcxl['concepts']
+            } for i in self.cxl.map.concepts)
+        
+        ret['missing links'] = list(dcsv['links'])
+        ret['links'] = list({
+            'name': i,
+            'correct': i not in dcxl['links']
+            } for i in self.cxl.map.links)
 
-    return payload
+        def _(frm, link, to, supplied, correct, important, present):
+            return {'from': frm, 'to': to, 'link': link, 'supplied': supplied, 'correct': correct, 'important': important, 'present string': present}
+        a = self.csv.attribute
+        ret['present porpsitions'] = list(_(i[0], i[1], i[2], *(a[i][:-1])) if i in a else _(i[0], i[1], i[2], False, None, False, '') for i in self.cxl.map.prop)
+        ret['absent porpsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1]} for i in dcsv['propositions'])
+        return ret
 
+    def to_json(self, *args, **kwargs):
+        import json
+        return json.dumps(self._parse(), *args, **kwargs)
 
 if __name__ == '__main__':
     import sys
-    import json
     
-    print(json.dumps(run(), indent=4))
-    # if len(sys.argv) != 3:
-    #     print('Usage:\n\tpython parsers.py map.csv map.cxl')
-    #     exit()
+    if len(sys.argv) != 3:
+        print('Usage:\n\tpython parsers.py map.csv map.cxl')
+        exit()
 
-    # csv = CsvMap(sys.argv[1])
-    # print('# csv map #')
-    # print(csv)
-    # print()
-
-    # cxl = CxlMap(sys.argv[2])
-    # print('# cxl map #')
-    # print(cxl)
-    # print()
-
-    # print(json.dumps(to_json(csv.map), indent=4))
-
+    csv = CsvMap(sys.argv[1])
+    cxl = CxlMap(sys.argv[2])
+    print(Marker(csv, cxl).to_json(indent=2))
