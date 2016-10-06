@@ -1,0 +1,15 @@
+.cmap {
+    overflow: auto;
+    position: relative;
+    background: #eee;
+}
+
+.concept {
+    position: absolute;
+    background: #fff;
+    border: 1px solid #0a0;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+}

@@ -4,6 +4,7 @@ from .models import Cmap
 from django import forms
 from .parsers import CsvMap, CxlMap, Marker
 import io
+import json
 
 
 class FileForm(forms.Form):
@@ -33,5 +34,7 @@ def index(request):
 
 
 def view_map(request, pk):
-    return render(request, './map.html', {'cmap': Cmap.objects.get(pk=pk).content})
+    cmap = json.loads(Cmap.objects.get(pk=pk).content)
+    cmap['json'] = json.dumps(cmap)
+    return render(request, './map.html', {'cmap': cmap})
 
