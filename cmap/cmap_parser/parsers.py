@@ -108,25 +108,25 @@ class Marker:
     def _parse(self):
         dcsv, dcxl = self.csv.map.diff(self.cxl.map)
         ret = {}
-        ret['missing concepts'] = list(dcsv['concepts'])
+        # ret['missing concepts'] = list(dcsv['concepts'])
         ret['concepts'] = list({
             'name': i,
             'x': self.cxl.attribute[i][0],
             'y': self.cxl.attribute[i][1],
-            'correct': i not in dcxl['concepts']
+            # 'correct': i not in dcxl['concepts']
             } for i in self.cxl.map.concepts)
         
-        ret['missing links'] = list(dcsv['links'])
+        # ret['missing links'] = list(dcsv['links'])
         ret['links'] = list({
             'name': i,
-            'correct': i not in dcxl['links']
+            # 'correct': i not in dcxl['links']
             } for i in self.cxl.map.links)
 
         def _(frm, link, to, supplied, correct, important, present):
             return {'from': frm, 'to': to, 'link': link, 'supplied': supplied, 'correct': correct, 'important': important, 'present string': present}
         a = self.csv.attribute
-        ret['present porpsitions'] = list(_(i[0], i[1], i[2], *(a[i][:-1])) if i in a else _(i[0], i[1], i[2], False, None, False, '') for i in self.cxl.map.prop)
-        ret['absent porpsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1]} for i in dcsv['propositions'])
+        ret['present propsitions'] = list(_(i[0], i[1], i[2], *(a[i][:-1])) if i in a else _(i[0], i[1], i[2], False, None, False, '') for i in self.cxl.map.prop)
+        ret['absent propsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1]} for i in dcsv['propositions'])
         return ret
 
     def to_json(self, *args, **kwargs):
