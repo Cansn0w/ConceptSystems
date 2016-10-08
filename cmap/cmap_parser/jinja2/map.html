@@ -7,16 +7,13 @@
 <a href="/">Back</a>
 <hr>
 
-{% if cmap %}
 <div class="cmap" style="height: 400px;">
-{% for i in cmap['concepts']: %}
-    <span class="concept" style="left: {{ i['x'] }}px; top: {{ i['y'] }}px;">{{ i['name'] }}</span>
+{% for name, pos in cmap['concepts'].items(): %}
+    <span class="concept" style="left: {{ pos['x'] }}px; top: {{ pos['y'] }}px;">{{ name }}</span>
 {% endfor %}
 </div>
-<script>var map = {{ cmap['json'] | safe }};</script>
-
-{% endif %}
 
 <hr>
+<script>var map = {{ cmap['json'] | safe }};</script>
 </body>
 </html>

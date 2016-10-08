@@ -108,19 +108,12 @@ class Marker:
     def _parse(self):
         dcsv, dcxl = self.csv.map.diff(self.cxl.map)
         ret = {}
-        # ret['missing concepts'] = list(dcsv['concepts'])
-        ret['concepts'] = list({
-            'name': i,
-            'x': self.cxl.attribute[i][0],
-            'y': self.cxl.attribute[i][1],
-            # 'correct': i not in dcxl['concepts']
-            } for i in self.cxl.map.concepts)
+        ret['concepts'] = dict(list((
+            i,
+            {'x': self.cxl.attribute[i][0],'y': self.cxl.attribute[i][1]}
+            ) for i in self.cxl.map.concepts))
         
-        # ret['missing links'] = list(dcsv['links'])
-        ret['links'] = list({
-            'name': i,
-            # 'correct': i not in dcxl['links']
-            } for i in self.cxl.map.links)
+        ret['links'] = list(i for i in self.cxl.map.links)
 
         def _(frm, link, to, supplied, correct, important, present):
             return {'from': frm, 'to': to, 'link': link, 'supplied': supplied, 'correct': correct, 'important': important, 'present string': present}
