@@ -1,19 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<link rel="stylesheet" href="{{ static('cmap.css') }}">
-</head>
-<body>
-<a href="/">Back</a>
-<hr>
+	<head>
+		
+		<title>FeedBack+</title>
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+		
 
-<div class="cmap" style="height: 400px;">
-{% for name, pos in cmap['concepts'].items(): %}
-    <span class="concept" style="left: {{ pos['x'] }}px; top: {{ pos['y'] }}px;">{{ name }}</span>
-{% endfor %}
-</div>
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cabin" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		
+		<link rel="stylesheet" href="{{ static('styles.css') }}">
+	</head>
+	<body>
+		<a href="/" class="header"><div class="header"><div class="container"><h1>Feedback+</h1></div></div></a>
+		<div class="container"> 
+			<div class="top"><a href="/" class="return"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a></div>
+		
+			<script>
+				function createLineElement(x, y, length, angle) {
+				var line = document.createElement("div");
+				var styles = 'border: 1px solid black; '
+				+ 'width: ' + length+ 'px; '
+				+ 'height: 0px; '
+				+ '-moz-transform: rotate(' + angle + 'rad); '
+				+ '-webkit-transform: rotate(' + angle + 'rad); '
+				+ '-o-transform: rotate(' + angle + 'rad); '
+				+ '-ms-transform: rotate(' + angle + 'rad); '
+				+ 'position: absolute; '
+				+ 'top: ' + y + 'px; '
+				+ 'left: ' + x + 'px; ';
+				line.setAttribute('style', styles);
+				return line;
+				}
+				
+				function createLine(x1, y1, x2, y2) {
+				var a = x1 - x2,
+				b = y1 - y2,
+				c = Math.sqrt(a * a + b * b);
+				
+				var sx = (x1 + x2) / 2,
+				sy = (y1 + y2) / 2;
+				
+				var x = sx - c / 2,
+				y = sy;
+				
+				var alpha = Math.PI - Math.atan2(-b, a);
+				
+				return createLineElement(x, y, c, alpha);
+				}
+				
+				function drawLine(x1, y1, x2, y2) {
+				document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2));
+				}
+		
+			</script>
+			<div class="row"><div class="col-md-2"></div><div class="col-md-10"><h1 class="mapTitle">Concept Map</h1></div></div>
+			
+			<div class="row">
+				<div class="col-md-2">
+					<ul>
+						<li><a href="#">Correct propositions</a></li>
+						<li><a href="#">Incorrect propositions</a></li>
+						<li><a href="#">Missing propositions</a></li>
+						<li><a href="#">Important</a></li>
+					</ul>
+				</div>
+				<div class="col-md-10">
+					<div class="cmap" id="cmap" style="height: 400px;">
+						<script>
+							function createLineElement(x, y, length, angle) {
+							var line = document.createElement("div");
+							var styles = 'border: 1px solid black; '
+							+ 'width: ' + length+ 'px; '
+							+ 'height: 0px; '
+							+ '-moz-transform: rotate(' + angle + 'rad); '
+							+ '-webkit-transform: rotate(' + angle + 'rad); '
+							+ '-o-transform: rotate(' + angle + 'rad); '
+							+ '-ms-transform: rotate(' + angle + 'rad); '
+							+ 'position: absolute; '
+							+ 'top: ' + y + 'px; '
+							+ 'left: ' + x + 'px; ';
+							line.setAttribute('style', styles);
+							return line;
+							}
+							
+							function createLine(x1, y1, x2, y2) {
+							var a = x1 - x2,
+							b = y1 - y2,
+							c = Math.sqrt(a * a + b * b);
+							
+							var sx = (x1 + x2) / 2,
+							sy = (y1 + y2) / 2;
+							
+							var x = sx - c / 2,
+							y = sy;
+							
+							var alpha = Math.PI - Math.atan2(-b, a);
+							
+							return createLineElement(x, y, c, alpha);
+							}
+							
+							function drawLine(x1, y1, x2, y2) {
+							document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2));
+							}
+					
+						</script>
+						<script>
+						{% for prop in cmap['present propsitions']: %}
+						     drawLine(
+						    	{{ cmap['concepts'][prop['from']]['x'] }},
+						    	{{ cmap['concepts'][prop['from']]['y'] }},
+						    	{{ cmap['concepts'][prop['to']]['x'] }},
+						    	{{ cmap['concepts'][prop['to']]['y'] }});
+						{% endfor %}
+						</script>
+						{% for name, pos in cmap['concepts'].items(): %}
+						    <span class="concept" style="left: {{ pos['x'] }}px; top: {{ pos['y'] }}px;">{{ name }}</span>
+						{% endfor %}
+						{% for prop in cmap['present propsitions']: %}
+						  <p class="link" style="left: {{ (cmap['concepts'][prop['from']]['x']+cmap['concepts'][prop['to']]['x'])/2 }}px; top: {{ (cmap['concepts'][prop['to']]['y']+cmap['concepts'][prop['from']]['y'])/2 }}px;" > {{ prop['link'] }}</p>
+						{% endfor %}
 
-<hr>
-<script>var map = {{ cmap['json'] | safe }};</script>
-</body>
+						</div>
+
+						<hr>
+						</div>
+					
+					
+					</div>
+					<div id="comment">
+						<h1>Explanations:</h1>
+						
+						<div id="textBox">
+							<p>auto fill in comment</p>
+						</div>
+						
+						<p>Click on item below or on map to show explanation</p>
+					</div>
+					
+					<div id="tableBox">
+						<table id="allWrongTab">
+							<th>Incorrect Propositions</th>
+							<tr><td><a href="http://www.google.com">auto fill in wrong propositions</a></td></tr>
+						</table>
+					<div>
+					<!--
+					<div id="tableBox">
+						<table id="allWrongTab">
+							<th>Absent Propositions</th>
+						{% for prop in cmap['absent propsitions']: %}
+						  <p> cmap['concepts'][prop['from']]['x']</p>
+						  <p> {{ prop['link'] }}</p>
+						  <p> cmap['concepts'][prop['to']]['x']</p>
+						{% endfor %}
+						</table>
+					<div>
+					-->	
+				</div>	
+			</div>
+		</div>
+		<script>var map = {{ cmap['json'] | safe }};</script>
+	</body>
 </html>
+
+	

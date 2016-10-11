@@ -1,0 +1,271 @@
+/***************************
+******* MAP  DRAWING *******
+****************************/
+
+.cmap {
+    overflow: auto;
+    position: relative;
+    border: solid 1px #f1f1f1;
+    background: #fff;
+}
+
+.concept {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border: 1px solid #0a0;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 5px;
+}
+
+.link{
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background-color:#fff;
+}
+.narrow-container{
+    max-width: 1000px;
+    padding-right:30px;
+    padding-left:30px; 
+}
+
+/***************************
+********* GENERAL  *********
+****************************/
+body{
+	color: #767676;
+	font-family: 'Roboto', sans-serif;
+	font-size: 12px;	
+}
+
+a{
+	text-decoration: none;
+	color: #333333;
+}
+
+h1, h2, h3, h4{
+	font-family: 'Cabin', sans-serif;
+	font-weight: bold;
+}
+
+button, .btn{
+	font-family: 'Cabin', san-serif;
+	color: #fff;
+	background-color: #3b5998;
+	text-transform: uppercase;
+	border: none;
+	font-size: 18px;
+}
+
+button:hover, .browseBtn:hover, .btn:hover{
+	color: #767676;
+	border: solid 1px #f1f1f1;
+	background-color: #fff;
+	cursor: pointer;
+}
+
+/***header bar ***/
+.header,
+.header:hover{
+	border-bottom: #efefef solid 1px;
+	background-color: ;
+	text-decoration: none;
+}
+
+.header h1{
+	color: #3b5998;	
+	font-size: 2.2em;
+	font-weight: bold;	
+	margin: 1em 0;
+}
+
+/***************************
+******* UPLOAD  PAGE *******
+****************************/
+
+/***** welcome message *****/
+.message{
+	text-align: center;
+	margin: 3.9em 0;
+}
+
+.message h1{
+	font-size: 4em;
+	margin-top: 0;
+}
+
+.message p{
+	font-size: 1.6em;
+	font-weight: 400;
+	margin-top: 2em;
+	line-height: 1.7;
+}
+
+/***** upload form *****/
+.form-group{
+	position: relative;
+	border-bottom: solid #f1f1f1 1px;
+}
+
+.fileUpload input.upload {
+	display: none;
+}
+
+.form-group .col-md-6{
+	background-color: purple;
+}
+
+.form-group .col-md-12{
+	padding: 15px;
+}
+
+.form-group.row {
+	margin-bottom: 0;
+}
+
+.col-md-4 {
+	padding: 0;
+	padding-right: 15px;
+	margin-bottom: 15px;
+}
+
+input{
+	padding: 0;
+	border: none;
+}
+
+label.fileUpload {
+    float: right;
+}
+
+.browseTitle{
+	font-size: 1.3em;
+}
+
+.browseTitle small{
+	font-size: 0.6em;
+}
+
+.browseBtn{
+	color: #fff;
+	font-family: 'Cabin', sans-serif;
+	font-size: 1.1em;	
+	font-weight: 100;	
+	background-color: #3b5998;
+	padding: 0.8em 2em;
+}
+
+.previous{
+	background-color: #c1c1c1;
+	padding: 15px 0;
+}
+
+.previous h6{
+	text-transform: uppercase;
+}
+
+.previous, .previous a{
+	color: #fff;
+	font-weight: normal;
+}
+
+::-webkit-input-placeholder { color: #3b5998; opacity: 1 !important; }
+:-moz-placeholder { color: #3b5998;}
+::-moz-placeholder {color: #3b5998;}
+:-ms-input-placeholder {color: #3b5998;}
+
+.box{
+	padding: 0 15px;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.col-md-4.col-md-offset-4 {
+    padding: 0;
+}
+
+.submit{
+	font-size: 20px;
+	margin: 30px 0;
+	width: 100%;
+	height: 50px;
+	
+}
+
+/***************************
+****** Map page layuot ******
+****************************/
+
+.return{
+	font-family: 'Robin', sans-serif;
+	font-size: 1.6em;
+	color: #3b5998;
+}
+
+.top{
+	margin-top: 25px;
+}
+
+.mapTitle{
+	margin-top: 0;
+	margin-bottom: 20px;
+}
+
+/***************************
+****** Wrong prop page layuot ******
+****************************/
+@charset "utf-8";
+/* CSS Document */
+
+
+#allWrongTab {
+	width: 100%;
+	margin-bottom: 20px;
+}
+
+tr:hover {
+	background-color: #CECEFF;
+}
+
+th {
+	font-size: 13px;
+	font-weight: 100;
+    background-color: #9e0b0f;
+    color: white;
+    letter-spacing: 1px;
+}
+
+th,td{
+	padding: 10px;
+}
+
+table, th, td {
+	border-collapse: collapse;
+	border: 1px solid #CCC;
+}
+#comment {
+	margin-bottom: 20px;
+	width: 100%;
+}
+
+#comment h1{
+	font-size: 20px;
+}
+
+#comment p{
+	margin: 5px 0;
+}
+
+#textBox {
+	background-color: #E8E8E8;
+	border: 1px solid #CCC;
+	height: 100px;
+}
+
+#textBox{
+	padding: 10px;
+}
+
+
