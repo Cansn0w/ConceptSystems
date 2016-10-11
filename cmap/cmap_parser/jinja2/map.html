@@ -145,23 +145,23 @@
 					</div>
 					
 					<div id="tableBox">
-						<table id="allWrongTab">
-							<th>Incorrect Propositions</th>
+						<table id="tab">
+							<th id="WrongProp">Incorrect Propositions</th>
 							<tr><td><a href="http://www.google.com">auto fill in wrong propositions</a></td></tr>
 						</table>
 					<div>
-					<!--
+					
 					<div id="tableBox">
-						<table id="allWrongTab">
-							<th>Absent Propositions</th>
+						<table id="tab">
+							<th id="AbsentProp">Absent Propositions</th>
+						<tr><td>	
 						{% for prop in cmap['absent propsitions']: %}
-						  <p> cmap['concepts'][prop['from']]['x']</p>
-						  <p> {{ prop['link'] }}</p>
-						  <p> cmap['concepts'][prop['to']]['x']</p>
+						  <p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
 						{% endfor %}
+						</tr></td>
 						</table>
 					<div>
-					-->	
+					
 				</div>	
 			</div>
 		</div>

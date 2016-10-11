@@ -220,7 +220,7 @@ label.fileUpload {
 /* CSS Document */
 
 
-#allWrongTab {
+#tab{
 	width: 100%;
 	margin-bottom: 20px;
 }
@@ -229,7 +229,7 @@ tr:hover {
 	background-color: #CECEFF;
 }
 
-th {
+#WrongProp {
 	font-size: 13px;
 	font-weight: 100;
     background-color: #9e0b0f;
@@ -237,6 +237,13 @@ th {
     letter-spacing: 1px;
 }
 
+#AbsentProp {
+	font-size: 13px;
+	font-weight: 100;
+    background-color: gray;
+    color: white;
+    letter-spacing: 1px;
+}
 th,td{
 	padding: 10px;
 }
