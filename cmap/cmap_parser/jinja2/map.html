@@ -74,9 +74,9 @@
 				<div class="col-md-10">
 					<div class="cmap" id="cmap" style="height: 400px;">
 						<script>
-							function createLineElement(x, y, length, angle) {
+							function createLineElement(x, y, length, angle, colour, weight) {
 							var line = document.createElement("div");
-							var styles = 'border: 1px solid black; '
+							var styles = 'border: ' + weight + 'px solid ' + colour + '; '
 							+ 'width: ' + length+ 'px; '
 							+ 'height: 0px; '
 							+ '-moz-transform: rotate(' + angle + 'rad); '
@@ -90,7 +90,7 @@
 							return line;
 							}
 							
-							function createLine(x1, y1, x2, y2) {
+							function createLine(x1, y1, x2, y2, colour, weight) {
 							var a = x1 - x2,
 							b = y1 - y2,
 							c = Math.sqrt(a * a + b * b);
@@ -103,11 +103,11 @@
 							
 							var alpha = Math.PI - Math.atan2(-b, a);
 							
-							return createLineElement(x, y, c, alpha);
+							return createLineElement(x, y, c, alpha, colour, weight);
 							}
 							
-							function drawLine(x1, y1, x2, y2) {
-							document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2));
+							function drawLine(x1, y1, x2, y2, colour, weight) {
+							document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2, colour, weight));
 							}
 					
 						</script>
@@ -117,7 +117,9 @@
 						    	{{ cmap['concepts'][prop['from']]['x'] }},
 						    	{{ cmap['concepts'][prop['from']]['y'] }},
 						    	{{ cmap['concepts'][prop['to']]['x'] }},
-						    	{{ cmap['concepts'][prop['to']]['y'] }});
+						    	{{ cmap['concepts'][prop['to']]['y'] }},
+						    	'{{ ('green' if prop['correct'] else 'red') if prop['important'] else 'grey'}}',
+						    	{{ 2 if prop['important'] else 1}});
 						{% endfor %}
 						</script>
 						{% for name, pos in cmap['concepts'].items(): %}
@@ -143,11 +145,30 @@
 						
 						<p>Click on item below or on map to show explanation</p>
 					</div>
-					
+
 					<div id="tableBox">
 						<table id="tab">
-							<th id="WrongProp">Incorrect Propositions</th>
-							<tr><td><a href="http://www.google.com">auto fill in wrong propositions</a></td></tr>
+							<th id="RightProp">Not Imporatnt Correct Propositions</th>
+							<tr><td>
+							{% for prop in cmap['present propsitions']: %}
+							{% if prop['correct'] == true and prop['important'] == false %}
+						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
+						  	{%endif%}
+							{% endfor %}
+							</tr></td>
+						</table>
+					<div>
+
+					<div id="tableBox">
+						<table id="tab">
+							<th id="WrongProp">Not Important Incorrect Propositions</th>
+							<tr><td>
+							{% for prop in cmap['present propsitions']: %}
+							{% if prop['correct'] == false and prop['important'] == false %}
+						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
+						  	{%endif%}
+							{% endfor %}
+							</tr></td>
 						</table>
 					<div>
 					

@@ -13,7 +13,7 @@
     position: absolute;
     transform: translate(-50%, -50%);
     background: #fff;
-    border: 1px solid #0a0;
+    border: 1px solid gray;
     padding-top: 6px;
     padding-bottom: 6px;
     padding-left: 20px;
@@ -227,6 +227,13 @@ label.fileUpload {
 
 tr:hover {
 	background-color: #CECEFF;
+}
+#RightProp {
+	font-size: 13px;
+	font-weight: 100;
+    background-color: forestgreen;
+    color: white;
+    letter-spacing: 1px;
 }
 
 #WrongProp {
