@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		
-		<title>FeedBack+</title>
+		<title>Concept Systems</title>
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		
@@ -17,8 +18,12 @@
 		
 		<link rel="stylesheet" href="{{ static('styles.css') }}">
 	</head>
-	<body>
-		<div id="mySidenav" class="sidenav">
+	
+	
+	<body>     
+	
+	
+<div id="mySidenav" class="sidenav">
   <ul>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <li><a href="map.html" title="Review your performance">Auto Feedback</a></li>
@@ -27,14 +32,19 @@
   <li><a href="/" onclick = "return confirm('Are you sure you want to start over?')" title="Upload new map">New Upload</a></li>
   </ul> 
  </div>
-		
+
+
  	<a href="/" class="header"><div class="header"><div class="container"><div class="boxed"><h1>Concept Systems</h1></div></div></div></a>
 		<div id="main">
 		<div class="container"> 
+	 
+		
+
 			<div class="top">
 				<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-
+				<a href="/" class="return"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true">Back</span></a>
 			</div>
+		
 			<script>
 				function createLineElement(x, y, length, angle) {
 				var line = document.createElement("div");
@@ -74,9 +84,15 @@
 		
 			</script>
 			<div class="row"><div class="col-md-2"></div><div class="col-md-10"><h1 class="mapTitle">Concept Map</h1></div></div>
-			
+		
 			<div class="row">
 				<div class="col-md-2">
+					<ul>
+						<li><a href="#">Correct propositions</a></li>
+						<li><a href="#">Incorrect propositions</a></li>
+						<li><a href="#">Missing propositions</a></li>
+						<li><a href="#">Important</a></li>
+					</ul>
 				</div>
 				<div class="col-md-10">
 					<div class="cmap" id="cmap" style="height: 400px;">
@@ -119,22 +135,72 @@
 					
 						</script>
 						<script>
-						{% for prop in cmap['present propsitions']: %}
+						
 						     drawLine(
-						    	{{ cmap['concepts'][prop['from']]['x'] }},
-						    	{{ cmap['concepts'][prop['from']]['y'] }},
-						    	{{ cmap['concepts'][prop['to']]['x'] }},
-						    	{{ cmap['concepts'][prop['to']]['y'] }},
-						    	'{{ ('green' if prop['correct'] else 'red') if prop['important'] else 'grey'}}',
-						    	{{ 2 if prop['important'] else 1}});
-						{% endfor %}
+						    	259,
+						    	281,
+						    	327,
+						    	191,
+						    	'red',
+						    	2);
+						
+						     drawLine(
+						    	327,
+						    	191,
+						    	263,
+						    	111,
+						    	'green',
+						    	2);
+						
+						     drawLine(
+						    	140,
+						    	280,
+						    	185,
+						    	189,
+						    	'grey',
+						    	1);
+						
+						     drawLine(
+						    	385,
+						    	281,
+						    	327,
+						    	191,
+						    	'grey',
+						    	1);
+						
+						     drawLine(
+						    	185,
+						    	189,
+						    	263,
+						    	111,
+						    	'grey',
+						    	1);
+						
 						</script>
-						{% for name, pos in cmap['concepts'].items(): %}
-						    <span class="concept" style="left: {{ pos['x'] }}px; top: {{ pos['y'] }}px;">{{ name }}</span>
-						{% endfor %}
-						{% for prop in cmap['present propsitions']: %}
-						  <p class="link" style="left: {{ (cmap['concepts'][prop['from']]['x']+cmap['concepts'][prop['to']]['x'])/2 }}px; top: {{ (cmap['concepts'][prop['to']]['y']+cmap['concepts'][prop['from']]['y'])/2 }}px;" > {{ prop['link'] }}</p>
-						{% endfor %}
+						
+						    <span class="concept" style="left: 140px; top: 280px;">dog</span>
+						
+						    <span class="concept" style="left: 185px; top: 189px;">mammal</span>
+						
+						    <span class="concept" style="left: 327px; top: 191px;">fish</span>
+						
+						    <span class="concept" style="left: 385px; top: 281px;">salmon</span>
+						
+						    <span class="concept" style="left: 259px; top: 281px;">whale</span>
+						
+						    <span class="concept" style="left: 263px; top: 111px;">living thing</span>
+						
+						
+						  <p class="link" style="left: 293.0px; top: 236.0px;" > is-a</p>
+						
+						  <p class="link" style="left: 295.0px; top: 151.0px;" > is-a</p>
+						
+						  <p class="link" style="left: 162.5px; top: 234.5px;" > is-a</p>
+						
+						  <p class="link" style="left: 356.0px; top: 236.0px;" > is-a</p>
+						
+						  <p class="link" style="left: 224.0px; top: 150.0px;" > is-a</p>
+						
 
 						</div>
 
@@ -143,48 +209,17 @@
 					
 					
 					</div>
-
-					<div id="tableBox">
-						<table id="tab">
-							<th id="RightProp">Not Imporatnt Correct Propositions</th>
-							<tr><td>
-							{% for prop in cmap['present propsitions']: %}
-							{% if prop['correct'] == true and prop['important'] == false %}
-						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
-						  	{%endif%}
-							{% endfor %}
-							</tr></td>
-						</table>
-					<div>
-
-					<div id="tableBox">
-						<table id="tab">
-							<th id="WrongProp">Not Important Incorrect Propositions</th>
-							<tr><td>
-							{% for prop in cmap['present propsitions']: %}
-							{% if prop['correct'] == false and prop['important'] == false %}
-						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
-						  	{%endif%}
-							{% endfor %}
-							</tr></td>
-						</table>
-					<div>
 					
-					<div id="tableBox">
-						<table id="tab">
-							<th id="AbsentProp">Absent Propositions</th>
-						<tr><td>	
-						{% for prop in cmap['absent propsitions']: %}
-						  <p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
-						{% endfor %}
-						</tr></td>
-						</table>
-					<div>
+
+					
 					
 				</div>	
 			</div>
-		</div>
-		<script>
+
+
+<script>var map = {"concepts": {"dog": {"y": 280, "x": 140}, "mammal": {"y": 189, "x": 185}, "fish": {"y": 191, "x": 327}, "salmon": {"y": 281, "x": 385}, "whale": {"y": 281, "x": 259}, "living thing": {"y": 111, "x": 263}}, "absent propsitions": [{"from": "whale", "link": "is-a", "absent string": "", "to": "mammal"}, {"from": "dog", "link": "is-a", "absent string": "", "to": "living thing"}], "present propsitions": [{"supplied": false, "important": true, "correct": false, "from": "whale", "link": "is-a", "present string": "A whale is actually a mammal. For more information look at http://scienceline.ucsb.edu/getkey.php?key=2536", "to": "fish"}, {"supplied": false, "important": true, "correct": true, "from": "fish", "link": "is-a", "present string": "", "to": "living thing"}, {"supplied": false, "important": false, "correct": true, "from": "dog", "link": "is-a", "present string": "", "to": "mammal"}, {"supplied": false, "important": false, "correct": true, "from": "salmon", "link": "is-a", "present string": "", "to": "fish"}, {"supplied": true, "important": false, "correct": true, "from": "mammal", "link": "is-a", "present string": "", "to": "living thing"}], "links": ["is-a"]};</script>
+
+<script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
@@ -195,8 +230,12 @@ function closeNav() {
     document.getElementById("main").style.marginLeft= "0";
 }
 </script>
-		<script>var map = {{ cmap['json'] | safe }};</script>
-	</body>
+     
+</body>
+	
+	
+	
+	
 </html>
 
 	

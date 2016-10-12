@@ -37,4 +37,3 @@ def view_map(request, pk):
     cmap = json.loads(Cmap.objects.get(pk=pk).content)
     cmap['json'] = json.dumps(cmap)
     return render(request, './map.html', {'cmap': cmap})
-

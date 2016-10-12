@@ -1,7 +1,9 @@
 /***************************
 ******* MAP  DRAWING *******
 ****************************/
-
+.header{
+	background-color:#3b5998;	
+}
 .cmap {
     overflow: auto;
     position: relative;
@@ -281,5 +283,88 @@ table, th, td {
 #textBox{
 	padding: 10px;
 }
+
+/***************************
+****** CSS changes ******
+****************************/
+
+.boxed h1{
+	color:white;
+}
+
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+	
+    background-color: black;
+	background-image: linear-gradient(#5b5858,#514f4f);
+	background-image: linear-gradient(#5b5858,#514f4f);
+	box-shadow:0 2px 1px #9c9c9c;
+	
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+	margin-top: 80px;
+	
+}
+
+.sidenav a {
+	font-family: "Lato", Helvetica, Arial;
+	font-size: 18px;
+   padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    display: block;
+    transition: 0.3s;
+	color:white;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.sidenav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidenav ul li{
+	 display: block; 
+	box-shadow: 0 1px 0 #111111, 
+                0 2px 0 #777777;
+}
+
+.sidenav li a:hover:not(.active) {
+    background-color: #3b5998;
+    background-image: linear-gradient(#597cc6, #1c47a0);
+	color: white;
+}
+
+.sidenav li a.active {
+    background-color: blue;
+    color: orange;
+}
+
+
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
 
 
