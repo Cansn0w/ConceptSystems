@@ -22,7 +22,7 @@
   <ul>
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
   <li><a href="map.html" title="Review your performance">Auto Feedback</a></li>
-  <li><a href="comments.html" title="Comments left by teacher">Remarks</a></li>
+  <li><a href="{{ pk }}/comments/" title="Comments left by teacher">Remarks</a></li>
   <li><a href="teacher.html" title="Model map created by teacher">Teacher's Map</a></li>
   <li><a href="/" onclick = "return confirm('Are you sure you want to start over?')" title="Upload new map">New Upload</a></li>
   </ul> 
@@ -35,44 +35,6 @@
 				<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
 			</div>
-			<script>
-				function createLineElement(x, y, length, angle) {
-				var line = document.createElement("div");
-				var styles = 'border: 1px solid black; '
-				+ 'width: ' + length+ 'px; '
-				+ 'height: 0px; '
-				+ '-moz-transform: rotate(' + angle + 'rad); '
-				+ '-webkit-transform: rotate(' + angle + 'rad); '
-				+ '-o-transform: rotate(' + angle + 'rad); '
-				+ '-ms-transform: rotate(' + angle + 'rad); '
-				+ 'position: absolute; '
-				+ 'top: ' + y + 'px; '
-				+ 'left: ' + x + 'px; ';
-				line.setAttribute('style', styles);
-				return line;
-				}
-				
-				function createLine(x1, y1, x2, y2) {
-				var a = x1 - x2,
-				b = y1 - y2,
-				c = Math.sqrt(a * a + b * b);
-				
-				var sx = (x1 + x2) / 2,
-				sy = (y1 + y2) / 2;
-				
-				var x = sx - c / 2,
-				y = sy;
-				
-				var alpha = Math.PI - Math.atan2(-b, a);
-				
-				return createLineElement(x, y, c, alpha);
-				}
-				
-				function drawLine(x1, y1, x2, y2) {
-				document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2));
-				}
-		
-			</script>
 			<div class="row"><div class="col-md-2"></div><div class="col-md-10"><h1 class="mapTitle">Concept Map</h1></div></div>
 			
 			<div class="row">
@@ -81,9 +43,9 @@
 				<div class="col-md-10">
 					<div class="cmap" id="cmap" style="height: 400px;">
 						<script>
-							function createLineElement(x, y, length, angle, colour, weight) {
+							function createLineElement(x, y, length, angle, colour) {
 							var line = document.createElement("div");
-							var styles = 'border: ' + weight + 'px solid ' + colour + '; '
+							var styles = 'border: 1px solid ' + colour + '; '
 							+ 'width: ' + length+ 'px; '
 							+ 'height: 0px; '
 							+ '-moz-transform: rotate(' + angle + 'rad); '
@@ -97,7 +59,7 @@
 							return line;
 							}
 							
-							function createLine(x1, y1, x2, y2, colour, weight) {
+							function createLine(x1, y1, x2, y2, colour) {
 							var a = x1 - x2,
 							b = y1 - y2,
 							c = Math.sqrt(a * a + b * b);
@@ -110,11 +72,11 @@
 							
 							var alpha = Math.PI - Math.atan2(-b, a);
 							
-							return createLineElement(x, y, c, alpha, colour, weight);
+							return createLineElement(x, y, c, alpha, colour);
 							}
 							
-							function drawLine(x1, y1, x2, y2, colour, weight) {
-							document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2, colour, weight));
+							function drawLine(x1, y1, x2, y2, colour) {
+							document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2, colour));
 							}
 					
 						</script>
@@ -125,8 +87,7 @@
 						    	{{ cmap['concepts'][prop['from']]['y'] }},
 						    	{{ cmap['concepts'][prop['to']]['x'] }},
 						    	{{ cmap['concepts'][prop['to']]['y'] }},
-						    	'{{ ('green' if prop['correct'] else 'red') if prop['important'] else 'grey'}}',
-						    	{{ 2 if prop['important'] else 1}});
+						    	'{{ 'green' if prop['correct'] else 'red' }}');
 						{% endfor %}
 						</script>
 						{% for name, pos in cmap['concepts'].items(): %}
@@ -146,10 +107,10 @@
 
 					<div id="tableBox">
 						<table id="tab">
-							<th id="RightProp">Not Imporatnt Correct Propositions</th>
+							<th id="RightProp">Correct Propositions</th>
 							<tr><td>
 							{% for prop in cmap['present propsitions']: %}
-							{% if prop['correct'] == true and prop['important'] == false %}
+							{% if prop['correct'] == true %}
 						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
 						  	{%endif%}
 							{% endfor %}
@@ -159,10 +120,10 @@
 
 					<div id="tableBox">
 						<table id="tab">
-							<th id="WrongProp">Not Important Incorrect Propositions</th>
+							<th id="WrongProp">Incorrect Propositions</th>
 							<tr><td>
 							{% for prop in cmap['present propsitions']: %}
-							{% if prop['correct'] == false and prop['important'] == false %}
+							{% if prop['correct'] == false %}
 						  	<p> {{ prop['from'] }} {{ prop['link'] }} {{ prop['to'] }}</p>
 						  	{%endif%}
 							{% endfor %}
