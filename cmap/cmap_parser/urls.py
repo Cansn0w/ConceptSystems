@@ -18,6 +18,5 @@ from . import views
 
 urlpatterns = [
     url(r'^(?P<pk>[0-9]+)/$', views.view_map),
-    url(r'^(?P<pk>[0-9]+)/comments/$', views.view_comments),
     url(r'^$', views.index),
 ]

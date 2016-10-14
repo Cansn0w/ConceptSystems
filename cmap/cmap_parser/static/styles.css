@@ -1,14 +1,22 @@
+@charset "utf-8";
 /***************************
 ******* MAP  DRAWING *******
 ****************************/
 .header{
-	background-color:#3b5998;	
+	background-color:#3b5998;
 }
-.cmap {
-    overflow: auto;
-    position: relative;
+
+.cmap-border {
+	padding: 80px;
     border: solid 1px #f1f1f1;
     background: #fff;
+    margin-bottom: 40px;
+}
+
+.cmap {
+    overflow: visible;
+    position: relative;
+	margin: 0 auto;
 }
 
 .concept {
@@ -28,11 +36,7 @@
     transform: translate(-50%, -50%);
     background-color:#fff;
 }
-.narrow-container{
-    max-width: 1000px;
-    padding-right:30px;
-    padding-left:30px; 
-}
+
 
 /***************************
 ********* GENERAL  *********
@@ -40,7 +44,8 @@
 body{
 	color: #767676;
 	font-family: 'Roboto', sans-serif;
-	font-size: 12px;	
+	font-size: 16px;
+	padding-bottom: 200px;
 }
 
 a{
@@ -54,7 +59,7 @@ h1, h2, h3, h4{
 }
 
 button, .btn{
-	font-family: 'Cabin', san-serif;
+	font-family: 'Cabin', sans-serif;
 	color: #fff;
 	background-color: #3b5998;
 	text-transform: uppercase;
@@ -73,7 +78,6 @@ button:hover, .browseBtn:hover, .btn:hover{
 .header,
 .header:hover{
 	border-bottom: #efefef solid 1px;
-	background-color: ;
 	text-decoration: none;
 }
 
@@ -82,6 +86,37 @@ button:hover, .browseBtn:hover, .btn:hover{
 	font-size: 2.2em;
 	font-weight: bold;	
 	margin: 1em 0;
+}
+
+.table-header {
+    color: #fff;
+    padding: 10px;
+}
+
+.table-block {
+    border-collapse: collapse;
+    width: 100%;
+    border: solid 1px lightgray;
+    margin-bottom: 20px;
+}
+
+.table-row {
+    display: block;
+    width: 100%;
+    border-bottom: solid 1px lightgray;
+    text-decoration: none !important;
+}
+
+.table-collapse {
+    background-color: lightgray;
+    padding: 8px;
+    color: #000;
+}
+
+.table-cell {
+    text-align: center;
+    display: inline-block;
+    padding: 6px;
 }
 
 /***************************
@@ -216,82 +251,8 @@ label.fileUpload {
 }
 
 /***************************
-****** Wrong prop page layuot ******
-****************************/
-@charset "utf-8";
-/* CSS Document */
-
-
-#tab{
-	width: 100%;
-	margin-bottom: 20px;
-}
-
-tr:hover {
-	background-color: #CECEFF;
-}
-#RightProp {
-	font-size: 13px;
-	font-weight: 100;
-    background-color: forestgreen;
-    color: white;
-    letter-spacing: 1px;
-}
-
-#WrongProp {
-	font-size: 13px;
-	font-weight: 100;
-    background-color: #9e0b0f;
-    color: white;
-    letter-spacing: 1px;
-}
-
-#AbsentProp {
-	font-size: 13px;
-	font-weight: 100;
-    background-color: gray;
-    color: white;
-    letter-spacing: 1px;
-}
-th,td{
-	padding: 10px;
-}
-
-table, th, td {
-	border-collapse: collapse;
-	border: 1px solid #CCC;
-}
-#comment {
-	margin-bottom: 20px;
-	width: 100%;
-}
-
-#comment h1{
-	font-size: 20px;
-}
-
-#comment p{
-	margin: 5px 0;
-}
-
-#textBox {
-	background-color: #E8E8E8;
-	border: 1px solid #CCC;
-	height: 100px;
-}
-
-#textBox{
-	padding: 10px;
-}
-
-/***************************
 ****** CSS changes ******
 ****************************/
-
-.boxed h1{
-	color:white;
-}
-
 
 .sidenav {
     height: 100%;
@@ -303,7 +264,6 @@ table, th, td {
 	
     background-color: black;
 	background-image: linear-gradient(#5b5858,#514f4f);
-	background-image: linear-gradient(#5b5858,#514f4f);
 	box-shadow:0 2px 1px #9c9c9c;
 	
     overflow-x: hidden;
@@ -314,7 +274,6 @@ table, th, td {
 }
 
 .sidenav a {
-	font-family: "Lato", Helvetica, Arial;
 	font-size: 18px;
    padding: 8px 8px 8px 32px;
     text-decoration: none;

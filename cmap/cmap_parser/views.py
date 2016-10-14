@@ -36,10 +36,19 @@ def index(request):
 def view_map(request, pk):
     cmap = json.loads(Cmap.objects.get(pk=pk).content)
     cmap['json'] = json.dumps(cmap)
-    return render(request, './map.html', {'cmap': cmap})
-
-
-def view_comments(request, pk):
-    cmap = json.loads(Cmap.objects.get(pk=pk).content)
-    cmap['json'] = json.dumps(cmap)
-    return render(request, './comments.html', {'cmap': cmap, 'pk': pk})
+    concepts = cmap['concepts']
+    minx = min(i['x'] for i in concepts.values())
+    miny = min(i['y'] for i in concepts.values())
+    maxx = max(i['x'] for i in concepts.values())
+    maxy = max(i['y'] for i in concepts.values())
+    width = maxx - minx
+    height = maxy - miny
+    scale = 588/width
+    for i in concepts.values():
+        i['x'] -= minx
+        i['y'] -= miny
+        i['x'] = int(i['x'] * scale)
+        i['y'] = int(i['y'] * scale)
+    width = int(width * scale)
+    height = int(height * scale)
+    return render(request, './map.html', {'cmap': cmap, 'width': width, 'height': height})

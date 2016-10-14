@@ -59,8 +59,7 @@ def inner_join(table1, col1, table2, col2):
 class CxlMap:
 
     def __init__(self, file):
-        
-        ## Parse CmapTools exported cxl file into concet map object
+        """Parse CmapTools exported cxl file into connect map object"""
         import xml.etree.ElementTree as ET
         m = ET.parse(file).getroot().find('{http://cmap.ihmc.us/xml/cmap/}map')
 
