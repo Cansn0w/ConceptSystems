@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FeedBack+</title>
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ static('styles.css') }}">
+
+    <script>
+        function createLineElement(x, y, length, angle, colour) {
+            var line = document.createElement("div");
+            var styles = 'border: 1px solid ' + colour + '; '
+        + 'width: ' + length+ 'px; '
+            + 'height: 0px; '
+            + '-moz-transform: rotate(' + angle + 'rad); '
+            + '-webkit-transform: rotate(' + angle + 'rad); '
+            + '-o-transform: rotate(' + angle + 'rad); '
+            + '-ms-transform: rotate(' + angle + 'rad); '
+            + 'position: absolute; '
+            + 'top: ' + y + 'px; '
+            + 'left: ' + x + 'px; ';
+            line.setAttribute('style', styles);
+            return line;
+        }
+
+        function createLine(x1, y1, x2, y2, colour) {
+            var a = x1 - x2,
+            b = y1 - y2,
+            c = Math.sqrt(a * a + b * b);
+
+            var sx = (x1 + x2) / 2,
+            sy = (y1 + y2) / 2;
+
+            var x = sx - c / 2,
+            y = sy;
+
+            var alpha = Math.PI - Math.atan2(-b, a);
+
+            return createLineElement(x, y, c, alpha, colour);
+        }
+
+        function drawLine(x1, y1, x2, y2, colour) {
+            document.getElementById('cmap').appendChild(createLine(x1, y1, x2, y2, colour));
+        }
+    </script>
+</head>
+
+<body>
+<a href="/" class="header"><div class="header"><div class="container"><h1> <span class="glyphicon glyphicon glyphicon-education" aria-hidden="true"></span>  Concept Systems</h1></div></div></a>
+	<div class="conceptInfo">
+		<div class="container">
+			<a href="/" class="return"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
+		    <div class="row">
+			    <div class="col-lg-12">
+					<h1 class="mapTitle">Concept Mapping Name</h1>
+					<p><em>Focus Questions:</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in orci dolor. Integer diam diam, maximus eu augue sed, consectetur accumsan ligula. Aliquam et velit ligula. </p>
+					<p>Below are your results.</p>
+			    </div>
+		    </div>
+		</div>
+	</div>
+<div class="container feedback">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="cmap-border">
+                <div class="cmap" id="cmap" style="width: {{ width }}px;height: {{ height }}px;">
+                    <script>
+                        {% for prop in cmap['present propsitions']: %}
+                            drawLine(
+                                    {{ cmap['concepts'][prop['from']]['x'] }},
+                                    {{ cmap['concepts'][prop['from']]['y'] }},
+                                    {{ cmap['concepts'][prop['to']]['x'] }},
+                                    {{ cmap['concepts'][prop['to']]['y'] }},
+                                    '{{ '#2ECC71' if prop['correct'] else '#E74C3C' }}'
+                            );
+                        {% endfor %}
+                    </script>
+                    {% for name, pos in cmap['concepts'].items(): %}
+                    <span class="concept" style="left: {{ pos['x'] }}px; top: {{ pos['y'] }}px;">{{ name }}</span>
+                    {% endfor %}
+                    {% for prop in cmap['present propsitions']: %}
+                    <p class="link" style="left: {{ (cmap['concepts'][prop['from']]['x']+cmap['concepts'][prop['to']]['x'])/2 }}px; top: {{ (cmap['concepts'][prop['to']]['y']+cmap['concepts'][prop['from']]['y'])/2 }}px;" > {{ prop['link'] }}</p>
+                    {% endfor %}
+                </div>
+            </div>
+           
+			<h6 class="lTitle">Legend:</h6>
+            <ul class="legends">
+	            <li><span class="glyphicon glyphicon-stop lGreen" aria-hidden="true"></span> Correct propositions</li>
+	            <li><span class="glyphicon glyphicon-stop lRed" aria-hidden="true"></span> Incorrect propositions</li>
+            </ul>
+        </div>
+<script>
+
+    function toggleShow(btn, cls) {
+        if (document.getElementById(btn).innerHTML != 'View less <span class="glyphicon glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>') {
+            $(cls).css('display', 'block');
+            document.getElementById(btn).innerHTML = 'View less <span class="glyphicon glyphicon glyphicon glyphicon-menu-up" aria-hidden="true"></span>';
+        } else {
+            $(cls).css('display', 'none');
+            document.getElementById(btn).innerHTML = 'View All <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span>';
+        }
+    }
+
+</script>
+        <div class="col-lg-4" id="comments">
+	        <p><small><em>Note:</em> Only important propositions are shown, click view all for both important and unimportant propositions.</small></p>
+
+            <div class="table-header" style="background-color: #2ECC71;">
+                <p class="pHeading">Correct Propositions</p>
+                <p><small>Well done! You got these propositions correct.</small></p>
+            </div>
+            <div class="table-block panel">
+                {% for prop in cmap['present propsitions'] %}
+                {% if prop['correct'] %}
+                <a class="table-row{{ ' not-important' if not prop['important'] else '' }}" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
+                {% for i in ['from', 'link', 'to'] %}
+                    <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
+                {% endfor %}
+                    <div class="table-cell">
+                        {% if prop['present string'] %}
+                            <i class="material-icons">announcement</i>
+                        {% endif %}
+                    </div>
+                </a>
+                    {% if prop['present string'] %}
+                        <div class="collapse table-collapse" id="comment-{{ prop['id'] }}">
+                        {{ prop['present string'] | urlize }}
+                        </div>
+                    {% endif %}
+                {%endif%}
+                {% endfor %}
+                <button onclick="toggleShow('correct-button', '.not-important')" id="correct-button">View All <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
+            </div>
+
+            <div class="table-header" style="background-color: #E74C3C;">
+                <p class="pHeading">Incorrect Propositions</p>
+                <p><small>Uh-oh, these are incorrect.</small></p>
+            </div>
+            <div class="table-block panel">
+                {% for prop in cmap['present propsitions'] %}
+                {% if not prop['correct'] %}
+                <a class="table-row{{ ' inco-not-important' if not prop['important'] else '' }}" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
+                {% for i in ['from', 'link', 'to'] %}
+                    <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
+                {% endfor %}
+                    <div class="table-cell">
+                        {% if prop['present string'] %}
+                            <i class="material-icons">announcement</i>
+                        {% endif %}
+                    </div>
+                </a>
+                    {% if prop['present string'] %}
+                        <div class="collapse table-collapse" id="comment-{{ prop['id'] }}">
+                        {{ prop['present string'] | urlize }}
+                        </div>
+                    {% endif %}
+                {%endif%}
+                {% endfor %}
+                <button onclick="toggleShow('incorrect-button', '.inco-not-important')" id="incorrect-button">View All<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
+            </div>
+
+            <div class="table-header" style="background-color: #34495E;">
+	            <p class="pHeading">Absent Propositions</p>
+	            <p><small>These are propositions that is not present in your concept map but are required base on the teacher's model map.</small></p>
+	        </div>
+            <div class="table-block panel">
+                {% for prop in cmap['absent propsitions'] %}
+                <a class="table-row" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
+                {% for i in ['from', 'link', 'to'] %}
+                    <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
+                {% endfor %}
+                    <div class="table-cell">
+                        {% if prop['absent string'] %}
+                            <i class="material-icons">announcement</i>
+                        {% endif %}
+                    </div>
+                </a>
+                    {% if prop['absent string'] %}
+                        <div class="collapse table-collapse" id="comment-{{ prop['id'] }}">
+                        {{ prop['absent string'] | urlize }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>var map = {{ cmap['json'] | safe }};</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>
+

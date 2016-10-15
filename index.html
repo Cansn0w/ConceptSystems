@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>FeedBack+</title>
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="{{ static('styles.css') }}">
+
+</head>
+
+<body>
+
+    <div class="header"><div class="container"><h1> <span class="glyphicon glyphicon glyphicon-education" aria-hidden="true"></span>  Concept Systems</h1></div></div>
+    <div class="container">
+        <div class="content">
+            <div class="message row">
+                <div class="col-md-8 col-md-offset-2">
+                    <h1>Welcome!</h1>
+                    <p>Upload your concept map and teacher's model map to receive immediate feedback.</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <form action="/" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+                        <div class="box">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="row"><div class="col-md-12 browseTitle"><p>Teacher's map <small>(required .csv)</small></p></div></div>
+                                    <div class="row">
+                                        <div class="col-md-8"><input id="csv_display" class="disableInputField" placeholder="No File Selected" disabled="disabled" /></div>
+                                        <div class="col-md-4">
+                                            <label for="id_csv" class="fileUpload">
+                                                <span class="browseBtn">BROWSE</span>
+                                                <input id="id_csv" type="file" name="{{form.csv.name}}" class="upload">
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <div class="row"><div class="col-md-12 browseTitle"><p>Concept map <small>(required .cxl)</small></p></div></div>
+                                    <div class="row">
+                                        <div class="col-md-8"><input id="cxl_display" class="disableInputField" placeholder="No File Selected" disabled="disabled" /></div>
+                                        <div class="col-md-4">
+                                            <label for="id_cxl" class="fileUpload">
+                                                <span class="browseBtn">BROWSE</span>
+                                                <input id="id_cxl" type="file" name="{{form.cxl.name}}" class="upload" required>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row previous">
+                                <div class="col-md-12">
+                                    {% if file_list %}
+                                    <h6>Previous uploads:</h6>
+                                    <ul>
+                                        {% for i in file_list %}
+                                        <li><a href="/{{i.pk}}/">{{i.csv}} - {{i.cxl}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row"><div class="col-md-12"><button type="submit" class="submit">submit</button></div></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        window.onload = function(){
+            document.getElementById("id_csv").onchange = function () {
+                document.getElementById("csv_display").value = this.value.replace('C:\\fakepath\\', '');
+            };
+
+            document.getElementById("id_cxl").onchange = function () {
+                document.getElementById("cxl_display").value = this.value.replace('C:\\fakepath\\', '');
+            };
+        };
+    </script>
+</body>
+
+</html>
