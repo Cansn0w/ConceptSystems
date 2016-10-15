@@ -5,6 +5,7 @@ from django import forms
 from .parsers import CsvMap, CxlMap, Marker
 import io
 import json
+from itertools import chain
 
 
 class FileForm(forms.Form):
@@ -35,7 +36,6 @@ def index(request):
 
 def view_map(request, pk):
     cmap = json.loads(Cmap.objects.get(pk=pk).content)
-    cmap['json'] = json.dumps(cmap)
     concepts = cmap['concepts']
     minx = min(i['x'] for i in concepts.values())
     miny = min(i['y'] for i in concepts.values())
@@ -51,4 +51,11 @@ def view_map(request, pk):
         i['y'] = int(i['y'] * scale)
     width = int(width * scale)
     height = int(height * scale)
+
+    cmap['json'] = json.dumps(cmap)
+
+    num = 0
+    for i in chain(cmap['present propsitions'], cmap['absent propsitions']):
+        i['id'] = num
+        num += 1
     return render(request, './map.html', {'cmap': cmap, 'width': width, 'height': height})

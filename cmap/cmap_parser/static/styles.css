@@ -326,4 +326,6 @@ label.fileUpload {
 }
 
 
-
+.not-important{
+	display: none;
+}
