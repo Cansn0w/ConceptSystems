@@ -58,8 +58,8 @@
 			<a href="/" class="return"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> Back</a>
 		    <div class="row">
 			    <div class="col-lg-12">
-					<h1 class="mapTitle">Concept Mapping Name</h1>
-					<p><em>Focus Questions:</em> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin in orci dolor. Integer diam diam, maximus eu augue sed, consectetur accumsan ligula. Aliquam et velit ligula. </p>
+					<h1 class="mapTitle">{{ cmap['name'] }}</h1>
+					<p><em>Focus Questions:</em>  {{ cmap['question'] }} </p>
 					<p>Below are your results.</p>
 			    </div>
 		    </div>
@@ -89,7 +89,7 @@
                     {% endfor %}
                 </div>
             </div>
-           
+
 			<h6 class="lTitle">Legend:</h6>
             <ul class="legends">
 	            <li><span class="glyphicon glyphicon-stop lGreen" aria-hidden="true"></span> Correct propositions</li>
@@ -112,13 +112,17 @@
         <div class="col-lg-4" id="comments">
 	        <p><small><em>Note:</em> Only important propositions are shown, click view all for both important and unimportant propositions.</small></p>
 
+            <!--CORRECT PROPOSITIONS-->
             <div class="table-header" style="background-color: #2ECC71;">
                 <p class="pHeading">Correct Propositions</p>
-                <p><small>Well done! You got these propositions correct.</small></p>
+                {% if cmap['correct propsitions'] %}
+                    <p><small>Well done! You got these propositions correct.</small></p>
+                {% else %}
+                    <p><small>You seem to not have any correct propositions o.O ..</small></p>
+                {% endif %}
             </div>
             <div class="table-block panel">
-                {% for prop in cmap['present propsitions'] %}
-                {% if prop['correct'] %}
+                {% for prop in cmap['correct propsitions'] %}
                 <a class="table-row{{ ' not-important' if not prop['important'] else '' }}" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
                 {% for i in ['from', 'link', 'to'] %}
                     <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
@@ -134,18 +138,21 @@
                         {{ prop['present string'] | urlize }}
                         </div>
                     {% endif %}
-                {%endif%}
                 {% endfor %}
                 <button onclick="toggleShow('correct-button', '.not-important')" id="correct-button">View All <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
             </div>
 
+            <!--INCORRECT PROPOSITIONS-->
             <div class="table-header" style="background-color: #E74C3C;">
                 <p class="pHeading">Incorrect Propositions</p>
-                <p><small>Uh-oh, these are incorrect.</small></p>
+                {% if cmap['incorrect propsitions'] + cmap['neutral propsitions'] %}
+                    <p><small>Uh-oh, these are incorrect.</small></p>
+                {% else %}
+                    <p><small>Fantastic! You don't have any incorrect propositions that are defined by teacher</small></p>
+                {% endif %}
             </div>
             <div class="table-block panel">
-                {% for prop in cmap['present propsitions'] %}
-                {% if not prop['correct'] %}
+                {% for prop in cmap['incorrect propsitions'] + cmap['neutral propsitions'] %}
                 <a class="table-row{{ ' inco-not-important' if not prop['important'] else '' }}" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
                 {% for i in ['from', 'link', 'to'] %}
                     <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
@@ -161,14 +168,17 @@
                         {{ prop['present string'] | urlize }}
                         </div>
                     {% endif %}
-                {%endif%}
                 {% endfor %}
                 <button onclick="toggleShow('incorrect-button', '.inco-not-important')" id="incorrect-button">View All<span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
             </div>
 
             <div class="table-header" style="background-color: #34495E;">
 	            <p class="pHeading">Absent Propositions</p>
-	            <p><small>These are propositions that is not present in your concept map but are required base on the teacher's model map.</small></p>
+                {% if cmap['absent propsitions'] %}
+                    <p><small>These are propositions that is not present in your concept map but are required base on the teacher's model map.</small></p>
+                {% else%}
+                    <p><small>Yay! You have got all propositions that are required .</small></p>
+                {% endif %}
 	        </div>
             <div class="table-block panel">
                 {% for prop in cmap['absent propsitions'] %}

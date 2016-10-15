@@ -58,4 +58,5 @@ def view_map(request, pk):
     for i in chain(cmap['present propsitions'], cmap['absent propsitions']):
         i['id'] = num
         num += 1
+
     return render(request, './map.html', {'cmap': cmap, 'width': width, 'height': height})

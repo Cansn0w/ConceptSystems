@@ -117,8 +117,25 @@ class Marker:
         def _(frm, link, to, supplied, correct, important, present):
             return {'from': frm, 'to': to, 'link': link, 'supplied': supplied, 'correct': correct, 'important': important, 'present string': present}
         a = self.csv.attribute
+
         ret['present propsitions'] = list(_(i[0], i[1], i[2], *(a[i][:-1])) if i in a else _(i[0], i[1], i[2], False, None, False, '') for i in self.cxl.map.prop)
+        ret['correct propsitions'], ret['incorrect propsitions'], ret['neutral propsitions'] = [], [], []
+        for i in self.cxl.map.prop:
+            if i in a:
+                if a[i][1]:
+                    ret['correct propsitions'].append(_(i[0], i[1], i[2], *(a[i][:-1])))
+                else:
+                    ret['incorrect propsitions'].append(_(i[0], i[1], i[2], *(a[i][:-1])))
+            else:
+                ret['neutral propsitions'].append(_(i[0], i[1], i[2], False, None, False, ''))
+
         ret['absent propsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1]} for i in dcsv['propositions'])
+        ret['name'] = self.csv.name
+        ret['question'] = self.csv.question
+
+        import json
+        print(json.dumps(ret, indent=4))
+
         return ret
 
     def to_json(self, *args, **kwargs):
