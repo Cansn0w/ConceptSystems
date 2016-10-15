@@ -31,7 +31,7 @@ class CsvMap:
         
         b = lambda x: True if x.lower() == 'yes' else False
         for i in d['Propositions:']:
-            if b(i[5]) and b(i[6]):
+            if b(i[5]):
                 self.map.add_proposition((i[1], i[2], i[3]))
             # # # # (concept1, link, concept2) = (supplied, correct, important, present-string, absent-string)
             self.attribute[(i[1], i[2], i[3])] = (b(i[4]), b(i[5]), b(i[6]), i[7], i[8])

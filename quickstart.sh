@@ -1,0 +1,1 @@
+python3 -m pip install --user virtualenv && python3 -m virtualenv ve && source ve/bin/activate && python3 -m pip install -r requirements.txt && cd cmap && python3 manage.py makemigrations && python3 manage.py migrate && python3 manage.py runserver
