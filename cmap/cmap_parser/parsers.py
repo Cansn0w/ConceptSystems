@@ -133,9 +133,6 @@ class Marker:
         ret['name'] = self.csv.name
         ret['question'] = self.csv.question
 
-        import json
-        print(json.dumps(ret, indent=4))
-
         return ret
 
     def to_json(self, *args, **kwargs):
