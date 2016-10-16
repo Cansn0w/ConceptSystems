@@ -55,7 +55,7 @@ def view_map(request, pk):
     cmap['json'] = json.dumps(cmap)
 
     num = 0
-    for i in chain(cmap['present propsitions'], cmap['absent propsitions'], cmap['correct propsitions'], cmap['incorrect propsitions']):
+    for i in chain(cmap['correct propsitions'], cmap['incorrect propsitions'], cmap['absent propsitions'], cmap['neutral propsitions']):
         i['id'] = num
         num += 1
 
