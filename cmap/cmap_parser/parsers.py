@@ -129,7 +129,7 @@ class Marker:
             else:
                 ret['neutral propsitions'].append(_(i[0], i[1], i[2], False, None, False, ''))
 
-        ret['absent propsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1]} for i in dcsv['propositions'])
+        ret['absent propsitions'] = list({'from': i[0], 'link': i[1], 'to': i[2], 'absent string': a[i][-1], 'impportant': a[i][2]} for i in dcsv['propositions'])
         ret['name'] = self.csv.name
         ret['question'] = self.csv.question
 

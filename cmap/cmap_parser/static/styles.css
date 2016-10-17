@@ -145,13 +145,13 @@ a:visited{
     padding: 6px;
 }
 
-#incorrect-button, #correct-button{
+#incorrect-button, #correct-button, #absent-button{
 	background-color: #fff;
 	color: #555;
 	padding: 15px 0;
 }
 
-#incorrect-button small, #correct-button small{
+#incorrect-button small, #correct-button small, #absent-button small{
 	text-transform: none;
 }
 
@@ -313,11 +313,11 @@ label.fileUpload {
     margin-top: 35px;
 }
 
-button#correct-button,button#incorrect-button  {
+button#correct-button,button#incorrect-button,button#absent-button  {
 	width: 100%;
 }
 
-button#correct-button:hover,button#incorrect-button:hover {
+button#correct-button:hover,button#incorrect-button:hover, button#absent-button:hover {
 	background-color: rgba(0,0,0,.02);
 	border: 0;
 }

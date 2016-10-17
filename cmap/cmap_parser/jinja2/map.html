@@ -173,6 +173,7 @@
                 <button onclick="toggleShow('incorrect-button', '.inco-not-important')" id="incorrect-button">View All <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
             </div>
 
+            <!--ABSENT PROPOSITIONS-->
             <div class="table-header" style="background-color: #34495E;">
 	            <p class="pHeading">Absent Propositions</p>
                 {% if cmap['absent propsitions'] %}
@@ -183,7 +184,8 @@
 	        </div>
             <div class="table-block panel">
                 {% for prop in cmap['absent propsitions'] %}
-                <a class="table-row" href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments">
+                <a class="table-row{{ ' absent-not-important' if not prop['important'] else '' }}"
+                   href="#comment-{{ prop['id'] }}" data-toggle="collapse" data-parent="#comments" style="{{'display: none;' if not prop['important'] else ''}}">
                 {% for i in ['from', 'link', 'to'] %}
                     <div class="table-cell" style="width: 25%;">{{ prop[i] }}</div>
                 {% endfor %}
@@ -199,6 +201,7 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+                <button onclick="toggleShow('absent-button', '.absent-not-important')" id="absent-button">View All <span class="glyphicon glyphicon glyphicon-menu-down" aria-hidden="true"></span></button>
             </div>
 
         </div>
