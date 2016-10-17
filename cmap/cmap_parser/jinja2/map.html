@@ -59,8 +59,10 @@
 		    <div class="row">
 			    <div class="col-lg-12">
 					<h1 class="mapTitle">{{ cmap['name'] }}</h1>
-					<p><em>Focus Questions:</em>  {{ cmap['question'] }} </p>
-					<p>Below are your results.</p>
+                    <div class="well">
+    					<h3>Focus Questions:</h3>  
+                        <p>{{ cmap['question'] }} </p>
+                    </div>
 			    </div>
 		    </div>
 		</div>
@@ -68,6 +70,7 @@
 <div class="container feedback">
     <div class="row">
         <div class="col-lg-8">
+            <p>Below are your results.</p>
             <div class="cmap-border">
                 <div class="cmap" id="cmap" style="width: {{ width }}px;height: {{ height }}px;">
                     <script>
@@ -110,8 +113,9 @@
 
 </script>
         <div class="col-lg-4" id="comments">
-	        <p><small><em>Note:</em> Only important propositions are shown, click view all for both important and unimportant propositions.</small></p>
-
+            <div class="well">
+	        <p style="color:red;"><small><em>Note:</em> Only important propositions are shown, click view all for both important and unimportant propositions.</small></p>
+            </div>
             <!--CORRECT PROPOSITIONS-->
             <div class="table-header" style="background-color: #2ECC71;">
                 <p class="pHeading">Correct Propositions</p>
