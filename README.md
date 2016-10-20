@@ -21,7 +21,6 @@ To run the application, you will need to install the dependencies. details are a
  * Jason Liu
  * Di Lu
  * Thi Kim Ngan Nguyen
- * Agamjot Virk
 
 ## Setup
 
