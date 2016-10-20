@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cmap xmlns:dcterms="http://purl.org/dc/terms/" xmlns="http://cmap.ihmc.us/xml/cmap/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:vcard="http://www.w3.org/2001/vcard-rdf/3.0#">
+    <res-meta>
+        <dc:title>livingthings</dc:title>
+        <dcterms:created>2016-10-01T11:19:37+10:00</dcterms:created>
+        <dcterms:modified>2016-10-01T11:19:36+10:00</dcterms:modified>
+        <dc:language>en</dc:language>
+        <dc:format>x-cmap/x-storable</dc:format>
+        <dc:publisher>FIHMC CmapTools 6.01.01</dc:publisher>
+        <dc:extent>4347 bytes</dc:extent>
+        <dc:source>cmap:1QFMW3SDL-1HSKT7V-1:1QFMW3TTV-FV46YY-Z:1QM8VJCZ8-2BT4TFT-5V</dc:source>
+    </res-meta>
+    <map width="296" height="199">
+        <concept-list>
+            <concept id="1QM8VKHJ4-1JKHVX3-86" label="salmon"/>
+            <concept id="1QM8VJZPH-16H6DFG-6T" label="mammal"/>
+            <concept id="1QM8VK814-GBH107-7B" label="fish"/>
+            <concept id="1QM8VKBR5-1J6CH9K-7M" label="dog"/>
+            <concept id="1QM8VKDYM-HVZQ8B-7W" label="whale"/>
+            <concept id="1QM8VJNLH-Z2TJ4W-62" label="living thing"/>
+        </concept-list>
+        <linking-phrase-list>
+            <linking-phrase id="1QM8VND5C-SX4S84-K5" label="is-a"/>
+            <linking-phrase id="1QM8VN6XT-12P55VD-HW" label="is-a"/>
+            <linking-phrase id="1QM8VN06R-8GGTCX-GJ" label="is-a"/>
+            <linking-phrase id="1QM8VN41H-2DK6F34-H7" label="is-a"/>
+            <linking-phrase id="1QM8VN9H2-1C9WHL6-JJ" label="is-a"/>
+        </linking-phrase-list>
+        <connection-list>
+            <connection id="1QM8VND5C-CHJ4ZP-K8" from-id="1QM8VKBR5-1J6CH9K-7M" to-id="1QM8VND5C-SX4S84-K5"/>
+            <connection id="1QM8VN41H-22N35YD-HH" from-id="1QM8VN41H-2DK6F34-H7" to-id="1QM8VJNLH-Z2TJ4W-62"/>
+            <connection id="1QM8VN6XT-R6KQYY-J4" from-id="1QM8VN6XT-12P55VD-HW" to-id="1QM8VK814-GBH107-7B"/>
+            <connection id="1QM8VN06R-1DS87XL-GS" from-id="1QM8VN06R-8GGTCX-GJ" to-id="1QM8VJNLH-Z2TJ4W-62"/>
+            <connection id="1QM8VN06R-27NXF5M-GM" from-id="1QM8VJZPH-16H6DFG-6T" to-id="1QM8VN06R-8GGTCX-GJ"/>
+            <connection id="1QM8VN41H-G976FN-HB" from-id="1QM8VK814-GBH107-7B" to-id="1QM8VN41H-2DK6F34-H7"/>
+            <connection id="1QM8VN9H2-1QGGW20-JS" from-id="1QM8VN9H2-1C9WHL6-JJ" to-id="1QM8VK814-GBH107-7B"/>
+            <connection id="1QM8VN9H2-4GY8BQ-JM" from-id="1QM8VKDYM-HVZQ8B-7W" to-id="1QM8VN9H2-1C9WHL6-JJ"/>
+            <connection id="1QM8VND5C-43RK02-KF" from-id="1QM8VND5C-SX4S84-K5" to-id="1QM8VJZPH-16H6DFG-6T"/>
+            <connection id="1QM8VN6XT-1FBYJS9-HZ" from-id="1QM8VKHJ4-1JKHVX3-86" to-id="1QM8VN6XT-12P55VD-HW"/>
+        </connection-list>
+        <concept-appearance-list>
+            <concept-appearance id="1QM8VKHJ4-1JKHVX3-86" x="385" y="281" width="59" height="25"/>
+            <concept-appearance id="1QM8VJZPH-16H6DFG-6T" x="185" y="189" width="69" height="25"/>
+            <concept-appearance id="1QM8VK814-GBH107-7B" x="327" y="191" width="37" height="25"/>
+            <concept-appearance id="1QM8VKBR5-1J6CH9K-7M" x="140" y="280" width="38" height="28"/>
+            <concept-appearance id="1QM8VKDYM-HVZQ8B-7W" x="259" y="281" width="51" height="25"/>
+            <concept-appearance id="1QM8VJNLH-Z2TJ4W-62" x="263" y="111" width="83" height="28"/>
+        </concept-appearance-list>
+        <linking-phrase-appearance-list>
+            <linking-phrase-appearance id="1QM8VND5C-SX4S84-K5" x="162" y="234" width="23" height="11"/>
+            <linking-phrase-appearance id="1QM8VN6XT-12P55VD-HW" x="356" y="236" width="23" height="11"/>
+            <linking-phrase-appearance id="1QM8VN06R-8GGTCX-GJ" x="224" y="150" width="23" height="11"/>
+            <linking-phrase-appearance id="1QM8VN41H-2DK6F34-H7" x="295" y="151" width="23" height="11"/>
+            <linking-phrase-appearance id="1QM8VN9H2-1C9WHL6-JJ" x="293" y="236" width="23" height="11"/>
+        </linking-phrase-appearance-list>
+        <connection-appearance-list>
+            <connection-appearance id="1QM8VND5C-CHJ4ZP-K8" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN41H-22N35YD-HH" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN6XT-R6KQYY-J4" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN06R-1DS87XL-GS" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN06R-27NXF5M-GM" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN41H-G976FN-HB" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN9H2-1QGGW20-JS" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN9H2-4GY8BQ-JM" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VND5C-43RK02-KF" from-pos="center" to-pos="center"/>
+            <connection-appearance id="1QM8VN6XT-1FBYJS9-HZ" from-pos="center" to-pos="center"/>
+        </connection-appearance-list>
+        <style-sheet-list>
+            <style-sheet id="_Default_">
+                <map-style background-color="255,255,255,0"/>
+                <concept-style font-name="Verdana" font-size="12" font-style="plain" font-color="0,0,0,255" text-margin="4" background-color="237,244,246,255" background-image-style="full" border-color="0,0,0,255" border-style="solid" border-thickness="1"
+                    border-shape="rounded-rectangle" border-shape-rrarc="15.0" text-alignment="center" shadow-color="none" min-width="-1" min-height="-1" max-width="-1.0"/>
+                <linking-phrase-style font-name="Verdana" font-size="12" font-style="plain" font-color="0,0,0,255" text-margin="1" background-color="0,0,255,0" background-image-style="full" border-color="0,0,0,0" border-style="solid" border-thickness="1"
+                    border-shape="rectangle" border-shape-rrarc="15.0" text-alignment="center" shadow-color="none"/>
+                <connection-style color="0,0,0,255" style="solid" thickness="1" type="straight" arrowhead="if-to-concept-and-slopes-up"/>
+                <resource-style font-name="SanSerif" font-size="12" font-style="plain" font-color="0,0,0,255" background-color="192,192,192,255"/>
+            </style-sheet>
+        </style-sheet-list>
+        <extra-graphical-properties-list>
+            <properties-list id="1QM8VJCZ8-2BT4TFT-5V">
+                <property key="StyleSheetGroup_0" value="//*@!#$%%^&amp;*()() No Grouped StyleSheets @"/>
+            </properties-list>
+        </extra-graphical-properties-list>
+    </map>
+</cmap>
